@@ -19,7 +19,7 @@ TARGET_TRIPLE := $(shell echo $(CROSS_COMPILE)|cut -f4 -d/ -)
 
 ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
-all: $(WG_TARGET) $(WG_QUICK_TARGET) $(WG_MODULE_TARGET)
+all: $(WG_TARGET) $(WG_QUICK_TARGET) $(WG_MODULE_TARGET) _setup
 
 # Download libmnl source tarball
 $(LIBMNL_TAR):
@@ -81,3 +81,7 @@ install: all
 
 clean:
 	rm -rf $(LIBMNL_TAR) $(LIBMNL_DIR) $(WIREGUARD_TAR) $(WIREGUARD_DIR) $(WIREGUARD_TOOLS_TAR) $(WIREGUARD_TOOLS_DIR)
+
+.PHONY: _setup
+_setup:
+	@node .github/setup.js
